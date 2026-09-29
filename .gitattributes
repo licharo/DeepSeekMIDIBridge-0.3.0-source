@@ -1,0 +1,23 @@
+# Keep Windows scripts with CRLF so they run with the built-in PowerShell 5.1,
+# everything else with LF. Binary files are marked so git never "fixes" them.
+* text=auto eol=lf
+
+*.ps1    text eol=crlf
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+*.sln    text eol=crlf
+
+*.png    binary
+*.jpg    binary
+*.ico    binary
+*.docx   binary
+*.xlsx   binary
+*.vst3   binary
+*.dll    binary
+*.exe    binary
+*.lib    binary
+*.a       binary
+*.obj    binary
+
+# Vendored JUCE: keep it exactly as shipped
+third_party/JUCE/** -text

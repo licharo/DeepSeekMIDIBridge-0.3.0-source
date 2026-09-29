@@ -1,0 +1,54 @@
+DeepSeek MIDI Bridge —— VST3 插件（Windows x64）
+=================================================
+
+这个插件做什么
+--------------
+放在 Live 的轨道上，它能“看到”其它音轨正在播放的 MIDI，然后把你的要求（自然语言）
+发给 DeepSeek，按参考素材生成新的 MIDI，写成标准 .mid 文件供你拖进 Live。
+不需要安装任何运行库（C 运行库已静态链接），Windows 10/11 x64 直接可用。
+
+安装了什么 / 装在哪里
+---------------------
+1) 插件（VST3）：
+   C:\Program Files\Common Files\VST3\DeepSeek MIDI Bridge.vst3\
+   —— 这是 Ableton Live 会自动扫描的系统 VST3 目录。如果你把安装位置改成了别的目录，
+      请在 Live 里：设置 → Plug-Ins → 把该目录加到 “VST3 Plug-In Custom Folder”，再 Rescan。
+
+2) 卸载程序 + 本说明：
+   C:\Program Files\DeepSeek MIDI Bridge\
+   ├─ 卸载 DeepSeek MIDI Bridge.exe     （双击即可卸载，也可以在系统“应用和功能”里卸载）
+   └─ install-manifest.txt              （安装清单：卸载程序只删清单里记录的、且属于本插件的文件）
+
+在 Live 里第一次使用
+--------------------
+1. 打开 Ableton Live → 设置 → Plug-Ins → 勾选 “Use VST3 Plug-In System Folders”，
+   然后点 Rescan（按住 Alt 点 Rescan 会做完整重扫）。
+2. 在浏览器 Plug-Ins → VST3 找到 DeepSeek MIDI Bridge，拖到一条 MIDI 轨上。
+3. 填入 DeepSeek API Key（platform.deepseek.com 申请，形如 sk-...），点“保存设置”。
+   也可以改本插件的“API 方案”一键切换官方/中转站与模型。
+4. 读别的音轨：目标轨的 MIDI From 选源轨（方式 B），或者在源轨上也放一个本插件并在
+   插件里勾选“共享给其它实例”（方式 A，两条轨都不用改路由）。
+5. 播放几小节让插件抓到素材 → 在 ② 里写要求（或选“常用要求”模板）→ 生成 MIDI。
+   生成完成后会自动打开文件夹并选中 .mid，把它拖进 Live 的轨道或 Session 格即可。
+
+文件都放在哪
+------------
+* 每个宿主工程一个文件夹（工程隔离）：
+      文档\DeepSeek MIDI Bridge\<工程名>\        ← 这个工程生成的 .mid
+                                        \.dmb-library\   ← 这个工程捕获到/导入的参考素材
+      工程名默认取 Live 的 Set 名，可以在插件“⚙ 设置 → 工程”里改名（文件夹会一起搬）。
+* 本机设置 / 素材总线：
+      %LOCALAPPDATA%\DeepSeekMidiBridge\
+  （API Key 以明文存在 settings.json 里；设置面板“测试连接”可以验证 Key 是否可用。）
+
+卸载
+----
+* 开始菜单 / 系统“设置 → 应用 → 已安装的应用”里的 “DeepSeek MIDI Bridge (VST3 插件)” → 卸载；
+* 或者直接双击 C:\Program Files\DeepSeek MIDI Bridge\卸载 DeepSeek MIDI Bridge.exe。
+卸载程序只删除安装清单里记录的、属于本插件的文件（以及它们留下的空文件夹），
+不会碰别的插件或别的软件；你生成的 MIDI 文件默认保留，需要在卸载界面里手动勾选才会删除。
+
+版本 / 许可
+-----------
+本说明随安装包生成；插件基于 JUCE 8 构建，仅使用系统自带的 Windows 组件。
+API 调用会把参考素材（音高/时值等）发往你配置的 DeepSeek 接口地址。

@@ -1,0 +1,33 @@
+// -----------------------------------------------------------------------------
+// Build output, IDE files and other generated things that must not be in git.
+// -----------------------------------------------------------------------------
+
+# CMake / Ninja / MSVC
+build/
+out/
+cmake-build-*/
+CMakeUserPresets.json
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.sln
+*.vcxproj*
+*.user
+
+# The packaged installer (it is attached to a GitHub release instead)
+dist/
+
+# Throw-away generation / verification output
+output/
+output_fixed/
+output_proof/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.pack.log
+
+# Windows
+Thumbs.db
+desktop.ini
